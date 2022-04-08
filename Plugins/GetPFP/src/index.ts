@@ -14,7 +14,7 @@ async function get_avatar_url(user: string) {
 }
 
 const GetPFP: Plugin = {
-  name: "Get PFP",
+  name: "GetPFP",
   commands: [],
 
   onStart() {
@@ -57,7 +57,7 @@ const GetPFP: Plugin = {
             height: 4096
           },
           footer: {
-            text: "Fetched by GetPFP | By iCraze"
+            text: "Fetched with GetPFP | By iCraze"
           },
           color: '0xff0000'
         }
