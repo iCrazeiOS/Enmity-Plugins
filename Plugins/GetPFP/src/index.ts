@@ -1,7 +1,7 @@
 import { Command, EnmitySectionID, ApplicationCommandInputType, ApplicationCommandOptionType, ApplicationCommandType } from "enmity-api/commands";
 import { Plugin, registerPlugin } from "enmity-api/plugins";
 import { sendReply } from "enmity-api/clyde";
-import { getUser } from "enmity-api/users";
+import { getUser, fetchCurrentUser } from "enmity-api/users";
 
 async function get_avatar_url(user: string) {
   var response = ["Error"];
@@ -40,12 +40,13 @@ const GetPFP: Plugin = {
           displayDescription: "User",
           
           type: ApplicationCommandOptionType.User,
-          required: true
+          required: false
         }
       ],
     
-      execute: async function (args, message) {
-        const response = await get_avatar_url(args[0].value);
+      execute: async function(args, message) {
+        let id =  await fetchCurrentUser().then(res => res.id);
+        const response = await get_avatar_url(args.length == 0 ? id : args[0].value);
 
         const embed = {
           type: 'rich',
