@@ -1,5 +1,5 @@
 import { Plugin, registerPlugin } from "enmity/managers/plugins";
-import { Messages, React } from "enmity/metro/common";
+import { Messages } from "enmity/metro/common";
 import { create } from "enmity/patcher";
 import manifest from "../manifest.json";
 
