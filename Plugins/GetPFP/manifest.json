@@ -1,0 +1,11 @@
+{
+  "name": "GetPFP",
+  "version": "2.0.0",
+  "description": "Get a user's profile picture via a slash command",
+  "authors": [
+     {
+        "name": "iCraze",
+        "id": "883412614699446283"
+     }
+  ]
+}
