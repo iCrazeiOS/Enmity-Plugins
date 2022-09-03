@@ -1,0 +1,31 @@
+{
+   "name": "enmity",
+   "description": "API wrapper for Enmity.",
+   "version": "1.2.4",
+   "license": "GPL-3.0",
+   "scripts": {
+      "build": "tsc",
+      "prepub": "copy package.json dist && copy README.md dist",
+      "pub": "cd dist & npm publish",
+      "postpub": "cd dist & del package.json & del README.md",
+      "release": "pnpm build && pnpm prepub && pnpm pub && pnpm postpub",
+      "docs": "typedoc --readme none --entryPointStrategy expand ./lib"
+   },
+   "repository": {
+      "type": "git",
+      "url": "git+https://github.com/enmity-mod/enmity-api.git"
+   },
+   "bugs": {
+      "url": "https://github.com/enmity-mod/enmity-api/issues"
+   },
+   "devDependencies": {
+      "@types/lodash": "^4.14.182",
+      "@types/react": "^18.0.9",
+      "@types/react-native": "^0.67.7",
+      "@typescript-eslint/eslint-plugin": "^5.14.0",
+      "@typescript-eslint/parser": "^5.14.0",
+      "eslint": "^8.11.0",
+      "typedoc": "^0.22.13",
+      "typescript": "^4.5.4"
+   }
+}
