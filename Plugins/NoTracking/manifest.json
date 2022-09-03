@@ -1,0 +1,11 @@
+{
+   "name": "NoTracking",
+   "version": "1.0.0",
+   "description": "Remove tracking parameters from links you send",
+   "authors": [
+      {
+         "name": "iCraze",
+         "id": "883412614699446283"
+      }
+   ]
+}
