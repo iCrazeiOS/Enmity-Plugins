@@ -16,7 +16,7 @@
       "@typescript-eslint/parser": "^5.8.1",
       "esbuild": "^0.14.9",
       "eslint": "^8.5.0",
-      "rollup": "^2.79.0",
+      "rollup": "^2.79.1",
       "rollup-plugin-esbuild": "^4.8.2"
    },
    "optionalDependencies": {
