@@ -31,10 +31,8 @@ const NoTracking: Plugin = {
 			message.match(urlRegex)?.forEach(url => {
 				let newUrl;
 				// check if the url is x.com too
-				if (url.includes("twitter.com/")) {
-					newUrl = url.split("t=")[0].split("s=")[0];
-				} else if (url.includes("x.com/")) {
-					newUrl = url.split("t=")[0].split("s=")[0];
+				if (url.match(/http(s)?:\/\/(www\.)?(twitter\.com|x\.com)/gi)) {
+					newUrl = url.split("t=")[0].split("s=")[0]; 
 				} else if (url.includes("reddit.com/")) {
 					// (?context is kept because that actually changes how replies are displayed)
 					newUrl = url.replace(/utm_medium(=[^&]*)?|^utm_medium(=[^&]*)?&?/g, "");
