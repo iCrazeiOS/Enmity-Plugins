@@ -30,7 +30,10 @@ const NoTracking: Plugin = {
 
 			message.match(urlRegex)?.forEach(url => {
 				let newUrl;
+				// check if the url is x.com too
 				if (url.includes("twitter.com/")) {
+					newUrl = url.split("t=")[0].split("s=")[0];
+				} else if (url.includes("x.com/")) {
 					newUrl = url.split("t=")[0].split("s=")[0];
 				} else if (url.includes("reddit.com/")) {
 					// (?context is kept because that actually changes how replies are displayed)
@@ -48,6 +51,16 @@ const NoTracking: Plugin = {
 					newUrl = url.split("?")[0]; // remove all params, don't think any are needed
 				} else if (url.includes("instagram.com/")) {
 					newUrl = url.split("?")[0]; // remove all params, don't think any are needed
+				}
+				  else if (url.includes("youtube.com/")) {
+					newUrl = url.split("?")[0];
+					let params = getParams(url);
+					if (params["v"]) newUrl += "?v=" + params["v"]; // add the video id back, if there was one
+				}
+				  else if (url.includes("youtu.be/")) {
+					newUrl = url.split("?")[0];
+					let params = getParams(url);
+					if (params["v"]) newUrl += "?v=" + params["v"]; // add the video id back, if there was one
 				}
 
 				if (newUrl) {
