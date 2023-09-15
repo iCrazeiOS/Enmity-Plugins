@@ -55,13 +55,12 @@ const NoTracking: Plugin = {
 					let params = getParams(url);
 					if (params["v"]) newUrl += "?v=" + params["v"]; // add the video id back, if there was one
 					if (params["t"]) newUrl += "&t=" + params["t"]; // add the timestamp back
-					// check if the url if the playlist url 
 					if (params["list"]) newUrl += "&list=" + params["list"]; // add the playlist id back
 					// if the url has a playlist and not a video id, add the playlist id back
 					if (params["list"] && !params["v"]) {
-						newUrl = url.split("?")[0];
 						newUrl += "?list=" + params["list"];
 					}
+					if (params["index"]) newUrl += "&index=" + params["index"]; // add the index back
 					
 
 				}
