@@ -54,14 +54,19 @@ const NoTracking: Plugin = {
 					newUrl = url.split("?")[0];
 					let params = getParams(url);
 					if (params["si"]) delete params["si"];
-					
-					
-
+					newUrl += "?"
+					for (let key in params) {
+						newUrl += key + "=" + params[key] + "&";
+					}
 				}
 				  else if (url.includes("youtu.be/")) {
 					newUrl = url.split("?")[0];
 					let params = getParams(url);
 					if (params["si"]) delete params["si"];
+					newUrl += "?"
+					for (let key in params) {
+						newUrl += key + "=" + params[key] + "&";
+					}
 				}
 
 				if (newUrl) {
