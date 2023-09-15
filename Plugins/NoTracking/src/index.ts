@@ -53,14 +53,7 @@ const NoTracking: Plugin = {
 				  else if (url.includes("youtube.com/")) {
 					newUrl = url.split("?")[0];
 					let params = getParams(url);
-					if (params["v"]) newUrl += "?v=" + params["v"]; // add the video id back, if there was one
-					if (params["t"]) newUrl += "&t=" + params["t"]; // add the timestamp back
-					if (params["list"]) newUrl += "&list=" + params["list"]; // add the playlist id back
-					// if the url has a playlist and not a video id, add the playlist id back
-					if (params["index"]) newUrl += "&index=" + params["index"];
-					if (params["list"] && !params["v"]) {
-						newUrl += "?list=" + params["list"];
-					}
+					if (params["si"]) delete params["si"];
 					
 					
 
@@ -68,7 +61,7 @@ const NoTracking: Plugin = {
 				  else if (url.includes("youtu.be/")) {
 					newUrl = url.split("?")[0];
 					let params = getParams(url);
-					if (params["t"]) newUrl += "?t=" + params["t"]; // add the timestamp back
+					if (params["si"]) delete params["si"];
 				}
 
 				if (newUrl) {
