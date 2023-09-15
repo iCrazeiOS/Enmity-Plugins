@@ -54,11 +54,14 @@ const NoTracking: Plugin = {
 					newUrl = url.split("?")[0];
 					let params = getParams(url);
 					if (params["v"]) newUrl += "?v=" + params["v"]; // add the video id back, if there was one
+					if (params["t"]) newUrl += "&t=" + params["t"]; // add the timestamp back
+					if (params["list"]) newUrl += "&list=" + params["list"]; // add the playlist id back
+
 				}
 				  else if (url.includes("youtu.be/")) {
 					newUrl = url.split("?")[0];
 					let params = getParams(url);
-					if (params["v"]) newUrl += "?v=" + params["v"]; // add the video id back, if there was one
+					if (params["t"]) newUrl += "?t=" + params["t"]; // add the timestamp back
 				}
 
 				if (newUrl) {
