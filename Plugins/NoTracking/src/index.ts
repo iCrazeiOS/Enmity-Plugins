@@ -53,12 +53,15 @@ const NoTracking: Plugin = {
 				  else if (url.includes("youtube.com/")) {
 					newUrl = url.split("?")[0];
 					let params = getParams(url);
-					// keep everything except si
 					if (params["si"]) delete params["si"];
-					// add the params back
 					let newParams = "";
 					for (let key in params) {
-						newParams += key + "=" + params[key][0] + "&";
+						if (key == Object.keys(params)[Object.keys(params).length - 1]) {
+							newParams += key + "=" + params[key][0];
+						}
+						else {
+							newParams += key + "=" + params[key][0] + "&";
+						}
 					}
 					newUrl += "?" + newParams;
 					
@@ -70,7 +73,12 @@ const NoTracking: Plugin = {
 					if (params["si"]) delete params["si"];
 					let newParams = "";
 					for (let key in params) {
-						newParams += key + "=" + params[key][0] + "&";
+						if (key == Object.keys(params)[Object.keys(params).length - 1]) {
+							newParams += key + "=" + params[key][0];
+						}
+						else {
+							newParams += key + "=" + params[key][0] + "&";
+						}
 					}
 					newUrl += "?" + newParams;
 					
