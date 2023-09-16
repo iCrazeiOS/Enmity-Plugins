@@ -53,12 +53,35 @@ const NoTracking: Plugin = {
 				  else if (url.includes("youtube.com/")) {
 					newUrl = url.split("?")[0];
 					let params = getParams(url);
-					if (params["v"]) newUrl += "?v=" + params["v"]; // add the video id back, if there was one
+					if (params["si"]) delete params["si"];
+					let newParams = "";
+					for (let key in params) {
+						if (key == Object.keys(params)[Object.keys(params).length - 1]) {
+							newParams += key + "=" + params[key][0];
+						}
+						else {
+							newParams += key + "=" + params[key][0] + "&";
+						}
+					}
+					newUrl += "?" + newParams;
+					
+					
 				}
 				  else if (url.includes("youtu.be/")) {
 					newUrl = url.split("?")[0];
 					let params = getParams(url);
-					if (params["v"]) newUrl += "?v=" + params["v"]; // add the video id back, if there was one
+					if (params["si"]) delete params["si"];
+					let newParams = "";
+					for (let key in params) {
+						if (key == Object.keys(params)[Object.keys(params).length - 1]) {
+							newParams += key + "=" + params[key][0];
+						}
+						else {
+							newParams += key + "=" + params[key][0] + "&";
+						}
+					}
+					newUrl += "?" + newParams;
+					
 				}
 
 				if (newUrl) {
