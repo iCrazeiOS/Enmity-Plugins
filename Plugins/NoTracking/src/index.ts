@@ -6,8 +6,9 @@ import manifest from "../manifest.json";
 const Patcher = create("no-tracking");
 
 // stolen from https://stackoverflow.com/a/10126995/14028635
-function getParams(str) {
-	let  params = {};
+function getParams(str): { [key: string]: string[] } {
+	let params = {};
+	if (!str.includes("?")) return params;
 	let keyValPairs = str.replace(/.*?\?/,"").split('&');
 	for (let pairNum in keyValPairs) {
 		let key = keyValPairs[pairNum].split('=')[0];
@@ -18,9 +19,22 @@ function getParams(str) {
 	return params;
 }
 
+function stringifyParams(params: { [key: string]: string[] }): string {
+	let newParams: string[] = [];
+	for (let key in params) {
+		let value = params[key][0];
+		if(typeof value === 'undefined')
+			newParams.push(key);
+		else
+			newParams.push(key + "=" + value);
+	}
+	return newParams.join("&");
+}
+
+
 const NoTracking: Plugin = {
 	...manifest,
-	
+
 	onStart() {
 		Patcher.before(Messages, "sendMessage", (a0, a1, a2) => {
 			let message = a1[1]["content"];
@@ -32,7 +46,7 @@ const NoTracking: Plugin = {
 				let newUrl;
 				// check if the url is x.com too
 				if (url.match(/http(s)?:\/\/(www\.)?(twitter\.com|x\.com)\//gi)) {
-					newUrl = url.split("t=")[0].split("s=")[0]; 
+					newUrl = url.split("t=")[0].split("s=")[0];
 				} else if (url.includes("reddit.com/")) {
 					// (?context is kept because that actually changes how replies are displayed)
 					newUrl = url.replace(/utm_medium(=[^&]*)?|^utm_medium(=[^&]*)?&?/g, "");
@@ -49,39 +63,11 @@ const NoTracking: Plugin = {
 					newUrl = url.split("?")[0]; // remove all params, don't think any are needed
 				} else if (url.includes("instagram.com/")) {
 					newUrl = url.split("?")[0]; // remove all params, don't think any are needed
-				}
-				  else if (url.includes("youtube.com/")) {
+				} else if (url.includes("youtube.com/") || url.includes("youtu.be/")) {
 					newUrl = url.split("?")[0];
 					let params = getParams(url);
 					if (params["si"]) delete params["si"];
-					let newParams = "";
-					for (let key in params) {
-						if (key == Object.keys(params)[Object.keys(params).length - 1]) {
-							newParams += key + "=" + params[key][0];
-						}
-						else {
-							newParams += key + "=" + params[key][0] + "&";
-						}
-					}
-					newUrl += "?" + newParams;
-					
-					
-				}
-				  else if (url.includes("youtu.be/")) {
-					newUrl = url.split("?")[0];
-					let params = getParams(url);
-					if (params["si"]) delete params["si"];
-					let newParams = "";
-					for (let key in params) {
-						if (key == Object.keys(params)[Object.keys(params).length - 1]) {
-							newParams += key + "=" + params[key][0];
-						}
-						else {
-							newParams += key + "=" + params[key][0] + "&";
-						}
-					}
-					newUrl += "?" + newParams;
-					
+					newUrl += "?" + stringifyParams(params);
 				}
 
 				if (newUrl) {
